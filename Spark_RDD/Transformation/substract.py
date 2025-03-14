@@ -8,13 +8,13 @@ conf = SparkConf().setAppName("mapPartitionWithIndex") \
 
 sc = SparkContext(conf=conf)
 
-text = sc.parallelize(["DIT me thAng nay noi ngU vaI lOn chung may a"]) \
+text = sc.parallelize(["thAng nay noi ngU vaI chung may a"]) \
     .flatMap(lambda line: line.split(" ")) \
     .map(lambda word: word.lower())
 
 #print(text.collect())
 
-removeText = sc.parallelize(["dit me ngu vai lon"]) \
+removeText = sc.parallelize(["ngu vai"]) \
     .flatMap(lambda line: line.split(" "))
 
 #print(removeText.collect())
