@@ -1,7 +1,5 @@
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
-from config.database_config import get_database_config
-from database.schema_manager import create_mongodb_schema, validate_schema
 
 #step 1: def (get mongo config)
 #step 2: def (connect)
