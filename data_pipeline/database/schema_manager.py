@@ -77,5 +77,31 @@ def validate_mysql_schema(cursor):
     if not user:
         raise Exception("----------User not found----------")
 
-
     print("----------Table validated----------")
+# "user_id":9614759,
+#     #         "login":"GoogleCodeExporter",
+#     #         "gravatar_id":"",
+#     #         "url":"https://api.github.com/users/GoogleCodeExporter",
+#     #         "avatar_url":"https://avatars.githubusercontent.com/u/9614759?"
+
+
+def create_redis_schema(client):
+    try:
+        client.flushdb() #drop database
+        client.set("user_id:9614759:login", "GoogleCodeExporter")
+        client.set("user_id:9614759:gravatar_id", "")
+        client.set("user_id:9614759:url", "https://api.github.com/users/GoogleCodeExporter")
+        client.set("user_id:9614759:avatar_url", "https://avatars.githubusercontent.com/u/9614759?")
+        client.sadd("user_id", "user:9614759")
+
+        print("----------Redis schema created----------")
+    except Error as e:
+        raise Exception(f"----------Error while executing command: {e}----------")
+def validate_redis_schema(client):
+    if not client.get("user_id:9614759:login") == "GoogleCodeExporter":
+        raise Exception("----------Redis schema not found----------")
+
+    if not client.sismember("user_id", "user:9614759"):
+        raise Exception("----------User not set in Redis schema----------")
+
+    print("----------Redis schema validated----------")
